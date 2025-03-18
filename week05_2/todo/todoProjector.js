@@ -34,7 +34,7 @@ const todoDoneProjector = todo => {
 
     todo.onDoneChanged(
         done => done
-        ? checkboxElement.setAttribute("checked", true)
+        ? checkboxElement.setAttribute("checked", "checked" /* analogous to readonly */)
         : checkboxElement.removeAttribute("checked")
     );
 

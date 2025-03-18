@@ -1,6 +1,6 @@
-import { ObservableList }          from "../../kolibri-dist-0.9.10/kolibri/observable.js";
-import { Attribute, VALID, VALUE } from "../../kolibri-dist-0.9.10/kolibri/presentationModel.js";
-import { Scheduler }               from "../../kolibri-dist-0.9.10/kolibri/dataflow/dataflow.js";
+import { ObservableList }                  from "../../kolibri-dist-0.9.10/kolibri/observable.js";
+import {Attribute, EDITABLE, VALID, VALUE} from "../../kolibri-dist-0.9.10/kolibri/presentationModel.js";
+import { Scheduler }                       from "../../kolibri-dist-0.9.10/kolibri/dataflow/dataflow.js";
 import { todoItemProjector }       from "./todoProjector.js";
 import { fortuneService }          from "./fortuneService.js";
 
@@ -16,17 +16,17 @@ const TodoController = () => {
         textAttr.setValidator( input => input.length >= 3   );
 
         // business rules / constraints (the text is only editable if not done)
-        doneAttr.getObs(VALUE).onChange( isDone => textAttr.getObs("editable",!isDone).setValue(!isDone));
+        doneAttr.getObs(VALUE).onChange( isDone => textAttr.getObs(EDITABLE,!isDone).setValue(!isDone));
 
         return {
-            getDone:            doneAttr.getObs(VALUE).getValue,
-            setDone:            doneAttr.getObs(VALUE).setValue,
-            onDoneChanged:      doneAttr.getObs(VALUE).onChange,
-            getText:            textAttr.getObs(VALUE).getValue,
-            setText:            textAttr.setConvertedValue,
-            onTextChanged:      textAttr.getObs(VALUE).onChange,
-            onTextValidChanged: textAttr.getObs(VALID).onChange,
-            onTextEditableChanged: textAttr.getObs("editable").onChange,
+            getDone:               doneAttr.getObs(VALUE).getValue,
+            setDone:               doneAttr.getObs(VALUE).setValue,
+            onDoneChanged:         doneAttr.getObs(VALUE).onChange,
+            getText:               textAttr.getObs(VALUE).getValue,
+            setText:               textAttr.setConvertedValue,
+            onTextChanged:         textAttr.getObs(VALUE).onChange,
+            onTextValidChanged:    textAttr.getObs(VALID).onChange,
+            onTextEditableChanged: textAttr.getObs(EDITABLE).onChange,
         }
     };
 
