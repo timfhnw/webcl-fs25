@@ -20,7 +20,7 @@ const todoTextProjector = todo => {
     todo.onTextEditableChanged(
         isEditable => isEditable
         ? inputElement.removeAttribute("readonly")
-        : inputElement.setAttribute("readonly", true));
+        : inputElement.setAttribute("readonly", "readonly"));
 
     return inputElement;
 };
