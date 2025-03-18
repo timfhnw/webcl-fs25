@@ -23,10 +23,10 @@ personSuite.add("crud", assert => {
 
     assert.is(masterContainer.children.length, 0*elementsPerRow);
 
-    // masterController.addPerson();
-    //
-    // assert.is(masterContainer.children.length, 1*elementsPerRow);
-    //
+    masterController.addPerson();
+
+    assert.is(masterContainer.children.length, 1*elementsPerRow);
+
     // masterController.addPerson();
     //
     // assert.is(masterContainer.children.length, 2*elementsPerRow);
