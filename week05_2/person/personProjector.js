@@ -80,9 +80,13 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
     deleteButton.innerHTML  = "&times;";
     deleteButton.onclick    = _ => masterController.removePerson(person);
 
-    const firstnameInputElement = null; // todo create the input fields and bind to the attribute props
-    const lastnameInputElement  = null;
+    const firstnameInputElement = personTextProjector(person.firstname);
+    const lastnameInputElement = personTextProjector(person.lastname);
+    const item = document.createElement("DIV");
+    const subitem1 = document.createElement("DIV");
+    const subitem2 = document.createElement("DIV");
 
+    item.className = "item"
     // todo: when a line in the master view is clicked, we have to set the selection
 
     selectionController.onPersonSelected(
@@ -100,9 +104,14 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
         removeMe();
     } );
 
-    rootElement.appendChild(deleteButton);
-    rootElement.appendChild(firstnameInputElement);
-    rootElement.appendChild(lastnameInputElement);
+
+    rootElement.appendChild(item);
+    item.appendChild(deleteButton);
+    subitem1.appendChild(firstnameInputElement);
+    subitem2.appendChild(lastnameInputElement);
+    item.append(subitem1);
+    item.append(subitem2);
+
     // todo: what to do with selection when person was added?
 };
 
@@ -113,8 +122,11 @@ const personListItemProjector = (masterController, selectionController, rootElem
     deleteButton.innerHTML  = "&times;";
     deleteButton.onclick    = _ => masterController.removePerson(person);
 
-    const firstnameInputElement = null; // todo create the input fields and bind to the attribute props
-    const lastnameInputElement  = null;
+    const firstnameInputElement = personTextProjector(person.firstname);
+    const lastnameInputElement = personTextProjector(person.lastname);
+    const item = document.createElement("DIV");
+    const subitem1 = document.createElement("DIV");
+    const subitem2 = document.createElement("DIV");
 
     // todo: when a line in the master view is clicked, we have to set the selection
 

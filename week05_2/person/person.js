@@ -1,6 +1,11 @@
 import { ObservableList, Observable }                   from "../../kolibri-dist-0.9.10/kolibri/observable.js";
 import { Attribute, LABEL }                             from "../../kolibri-dist-0.9.10/kolibri/presentationModel.js";
-import {personListItemProjector, personFormProjector, personListItemTableProjector} from "./personProjector.js";
+import {
+    personListItemProjector,
+    personFormProjector,
+    personListItemTableProjector,
+    personListItemDivRowProjector
+} from "./personProjector.js";
 
 export { MasterController, MasterView, SelectionController, DetailView }
 
@@ -38,7 +43,7 @@ const MasterController = () => {
 const MasterView = (masterController, selectionController, rootElement) => {
 
     const render = person =>
-        personListItemTableProjector(masterController, selectionController, rootElement, person);
+        personListItemDivRowProjector(masterController, selectionController, rootElement, person);
 
     // binding
     masterController.onPersonAdd(render);
