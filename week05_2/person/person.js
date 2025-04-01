@@ -38,7 +38,7 @@ const MasterController = () => {
 const MasterView = (masterController, selectionController, rootElement) => {
 
     const render = person =>
-        personListItemProjector(masterController, selectionController, rootElement, person);
+        personListItemTableProjector(masterController, selectionController, rootElement, person);
 
     // binding
     masterController.onPersonAdd(render);
