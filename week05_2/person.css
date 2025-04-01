@@ -52,3 +52,17 @@ input.invalid {
 .selected {
     box-shadow: 0 0 0.2em gold;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(4, minmax(100px, auto));
+}
+
+.item {
+    display: grid;
+    grid-column: 2 / 7;
+    grid-row: 2 / 4;
+    grid-template-columns: subgrid;
+    grid-template-rows: repeat(3, 80px);
+}
