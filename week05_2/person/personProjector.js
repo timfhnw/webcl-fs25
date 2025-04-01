@@ -124,9 +124,6 @@ const personListItemProjector = (masterController, selectionController, rootElem
 
     const firstnameInputElement = personTextProjector(person.firstname);
     const lastnameInputElement = personTextProjector(person.lastname);
-    const item = document.createElement("DIV");
-    const subitem1 = document.createElement("DIV");
-    const subitem2 = document.createElement("DIV");
 
     // todo: when a line in the master view is clicked, we have to set the selection
 
