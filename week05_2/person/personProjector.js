@@ -1,6 +1,7 @@
+import { T } from "../../kolibri-dist-0.9.10/kolibri/lambda/church.js";
 import {VALUE, VALID, EDITABLE, LABEL} from "../../kolibri-dist-0.9.10/kolibri/presentationModel.js";
 
-export { personListItemProjector, personFormProjector }
+export { personListItemProjector, personFormProjector, personListItemTableProjector, personListItemDivRowProjector }
 
 const bindTextInput = (textAttr, inputElement) => {
     inputElement.oninput = _ => textAttr.setConvertedValue(inputElement.value);
@@ -31,6 +32,78 @@ const personTextProjector = textAttr => {
     bindTextInput(textAttr, inputElement);
 
     return inputElement;
+};
+
+const personListItemTableProjector = (masterController, selectionController, rootElement, person) => {
+
+    const deleteButton      = document.createElement("Button");
+    deleteButton.setAttribute("class","delete");
+    deleteButton.innerHTML  = "&times;";
+    deleteButton.onclick    = _ => masterController.removePerson(person);
+
+    const firstnameInputElement = personTextProjector(person.firstname);
+    const lastnameInputElement = personTextProjector(person.lastname);
+    const tr = document.createElement("TR");
+    const th1 = document.createElement("TH");
+    const th2 = document.createElement("TH");
+
+    // todo: when a line in the master view is clicked, we have to set the selection
+
+    selectionController.onPersonSelected(
+        selected => selected === person
+          ? deleteButton.classList.add("selected")
+          : deleteButton.classList.remove("selected")
+    );
+
+    masterController.onPersonRemove( (removedPerson, removeMe) => {
+        if (removedPerson !== person) return;
+        rootElement.removeChild(deleteButton);
+        rootElement.removeChild(firstnameInputElement);
+        rootElement.removeChild(lastnameInputElement);
+        // todo: what to do with selection when person was removed?
+        removeMe();
+    } );
+
+    rootElement.appendChild(tr);
+    tr.appendChild(deleteButton);
+    tr.append(th1);
+    th1.appendChild(firstnameInputElement);
+    tr.append(th2);
+    th2.appendChild(lastnameInputElement);
+    // todo: what to do with selection when person was added?
+};
+
+const personListItemDivRowProjector = (masterController, selectionController, rootElement, person) => {
+
+    const deleteButton      = document.createElement("Button");
+    deleteButton.setAttribute("class","delete");
+    deleteButton.innerHTML  = "&times;";
+    deleteButton.onclick    = _ => masterController.removePerson(person);
+
+    const firstnameInputElement = null; // todo create the input fields and bind to the attribute props
+    const lastnameInputElement  = null;
+
+    // todo: when a line in the master view is clicked, we have to set the selection
+
+    selectionController.onPersonSelected(
+        selected => selected === person
+          ? deleteButton.classList.add("selected")
+          : deleteButton.classList.remove("selected")
+    );
+
+    masterController.onPersonRemove( (removedPerson, removeMe) => {
+        if (removedPerson !== person) return;
+        rootElement.removeChild(deleteButton);
+        rootElement.removeChild(firstnameInputElement);
+        rootElement.removeChild(lastnameInputElement);
+        // todo: what to do with selection when person was removed?
+        removeMe();
+    } );
+
+    rootElement.appendChild(deleteButton);
+    rootElement.appendChild(firstnameInputElement);
+    rootElement.appendChild(lastnameInputElement);
+    // todo: what to do with selection when person was added?
 };
 
 const personListItemProjector = (masterController, selectionController, rootElement, person) => {
@@ -68,7 +141,7 @@ const personListItemProjector = (masterController, selectionController, rootElem
 
 const personFormProjector = (detailController, rootElement, person) => {
 
-    const divElement = document.createElement("DIV");
+    const divElement = document.createElement("TABLE");
     divElement.innerHTML = `
     <FORM>
         <DIV class="detail-form">
@@ -79,9 +152,18 @@ const personFormProjector = (detailController, rootElement, person) => {
         </DIV>
     </FORM>`;
 
-    // todo: bind text values
+    const firstnameInput = divElement.querySelector("#firstname");
+    const lastnameInput  = divElement.querySelector("#lastname");
+    const firstnameLabel = divElement.querySelector("label[for='firstname']");
+    const lastnameLabel  = divElement.querySelector("label[for='lastname']");
 
+    // todo: bind text values
+    bindTextInput(person.firstname, firstnameInput);
+    bindTextInput(person.lastname, lastnameInput);
     // todo: bind label values
+    person.firstname.getObs(LABEL).onChange(label => firstnameLabel.textContent = label);
+    person.lastname.getObs(LABEL).onChange(label => lastnameLabel.textContent = label);
 
     rootElement.firstChild.replaceWith(divElement); // react - style ;-)
 };
+
