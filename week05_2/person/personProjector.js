@@ -85,11 +85,11 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
 
     const firstnameInputElement = personTextProjector(person.firstname);
     const lastnameInputElement = personTextProjector(person.lastname);
-    const item = document.createElement("DIV");
-    const subitem1 = document.createElement("DIV");
-    const subitem2 = document.createElement("DIV");
+    const row = document.createElement("DIV");
+    const cell1 = document.createElement("DIV");
+    const cell2 = document.createElement("DIV");
 
-    item.className = "item"
+    row.className = "item"
     // todo: when a line in the master view is clicked, we have to set the selection
 
     selectionController.onPersonSelected(
@@ -100,7 +100,7 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
 
     masterController.onPersonRemove( (removedPerson, removeMe) => {
         if (removedPerson !== person) return;
-        rootElement.removeChild(item);
+        rootElement.removeChild(row);
         // todo: what to do with selection when person was removed?
         removeMe();
     } );
@@ -109,12 +109,12 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
     firstnameInputElement.addEventListener('focus', onFieldFocus);
     lastnameInputElement.addEventListener('focus', onFieldFocus);
 
-    rootElement.appendChild(item);
-    item.appendChild(deleteButton);
-    subitem1.appendChild(firstnameInputElement);
-    subitem2.appendChild(lastnameInputElement);
-    item.append(subitem1);
-    item.append(subitem2);
+    rootElement.appendChild(row);
+    row.appendChild(deleteButton);
+    cell1.appendChild(firstnameInputElement);
+    cell2.appendChild(lastnameInputElement);
+    row.append(cell1);
+    row.append(cell2);
 
     // todo: what to do with selection when person was added?
     selectionController.setSelectedPerson(person);
