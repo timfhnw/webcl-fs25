@@ -44,8 +44,8 @@ const personListItemTableProjector = (masterController, selectionController, roo
     const firstnameInputElement = personTextProjector(person.firstname);
     const lastnameInputElement = personTextProjector(person.lastname);
     const tr = document.createElement("TR");
-    const th1 = document.createElement("TH");
-    const th2 = document.createElement("TH");
+    const td1 = document.createElement("TD");
+    const td2 = document.createElement("TD");
 
     // todo: when a line in the master view is clicked, we have to set the selection
 
@@ -68,10 +68,10 @@ const personListItemTableProjector = (masterController, selectionController, roo
 
     rootElement.appendChild(tr);
     tr.appendChild(deleteButton);
-    tr.append(th1);
-    th1.appendChild(firstnameInputElement);
-    tr.append(th2);
-    th2.appendChild(lastnameInputElement);
+    tr.append(td1);
+    td1.appendChild(firstnameInputElement);
+    tr.append(td2);
+    td2.appendChild(lastnameInputElement);
     // todo: what to do with selection when person was added?
     selectionController.setSelectedPerson(person);
 };

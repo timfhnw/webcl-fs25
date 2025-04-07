@@ -60,3 +60,6 @@ input.invalid {
     grid-template-columns: repeat(4, 1fr);
 }
 
+.super-selected {
+
+}
