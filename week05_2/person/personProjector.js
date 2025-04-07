@@ -89,7 +89,7 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
     const cell1 = document.createElement("DIV");
     const cell2 = document.createElement("DIV");
 
-    row.className = "item"
+    row.className = "row"
     // todo: when a line in the master view is clicked, we have to set the selection
 
     selectionController.onPersonSelected(
