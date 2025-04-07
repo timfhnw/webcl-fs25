@@ -62,6 +62,10 @@ const personListItemTableProjector = (masterController, selectionController, roo
         removeMe();
     } );
 
+    const onFieldFocus = () => selectionController.setSelectedPerson(person);
+    firstnameInputElement.addEventListener('focus', onFieldFocus);
+    lastnameInputElement.addEventListener('focus', onFieldFocus);
+
     rootElement.appendChild(tr);
     tr.appendChild(deleteButton);
     tr.append(th1);
@@ -101,6 +105,9 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
         removeMe();
     } );
 
+    const onFieldFocus = () => selectionController.setSelectedPerson(person);
+    firstnameInputElement.addEventListener('focus', onFieldFocus);
+    lastnameInputElement.addEventListener('focus', onFieldFocus);
 
     rootElement.appendChild(item);
     item.appendChild(deleteButton);
@@ -120,8 +127,8 @@ const personListItemProjector = (masterController, selectionController, rootElem
     deleteButton.innerHTML  = "&times;";
     deleteButton.onclick    = _ => masterController.removePerson(person);
 
-    const firstnameInputElement = personTextProjector(person.firstname);
-    const lastnameInputElement = personTextProjector(person.lastname);
+    const firstnameInputElement = personTextProjector(person.firstname); // todo create the input fields and bind to the attribute props
+    const lastnameInputElement  = personTextProjector(person.lastname);
 
     // todo: when a line in the master view is clicked, we have to set the selection
 
@@ -144,7 +151,6 @@ const personListItemProjector = (masterController, selectionController, rootElem
     rootElement.appendChild(firstnameInputElement);
     rootElement.appendChild(lastnameInputElement);
     // todo: what to do with selection when person was added?
-    selectionController.setSelectedPerson(person);
 };
 
 const personFormProjector = (detailController, rootElement, person) => {
