@@ -48,21 +48,7 @@ const personListItemTableProjector = (masterController, selectionController, roo
     const th2 = document.createElement("TH");
 
     // todo: when a line in the master view is clicked, we have to set the selection
-
-    selectionController.onPersonSelected(
-        selected => selected === person
-          ? deleteButton.classList.add("selected")
-          : deleteButton.classList.remove("selected")
-    );
-
-    masterController.onPersonRemove( (removedPerson, removeMe) => {
-        if (removedPerson !== person) return;
-        rootElement.removeChild(deleteButton);
-        rootElement.removeChild(firstnameInputElement);
-        rootElement.removeChild(lastnameInputElement);
-        // todo: what to do with selection when person was removed?
-        removeMe();
-    } );
+    registerPersonOnSelectDelete(deleteButton, firstnameInputElement, lastnameInputElement);
 
     rootElement.appendChild(tr);
     tr.appendChild(deleteButton);
@@ -88,22 +74,7 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
 
     item.className = "item"
     // todo: when a line in the master view is clicked, we have to set the selection
-
-    selectionController.onPersonSelected(
-        selected => selected === person
-          ? deleteButton.classList.add("selected")
-          : deleteButton.classList.remove("selected")
-    );
-
-    masterController.onPersonRemove( (removedPerson, removeMe) => {
-        if (removedPerson !== person) return;
-        rootElement.removeChild(deleteButton);
-        rootElement.removeChild(firstnameInputElement);
-        rootElement.removeChild(lastnameInputElement);
-        // todo: what to do with selection when person was removed?
-        removeMe();
-    } );
-
+    registerPersonOnSelectDelete(deleteButton, firstnameInputElement, lastnameInputElement);
 
     rootElement.appendChild(item);
     item.appendChild(deleteButton);
@@ -127,20 +98,7 @@ const personListItemProjector = (masterController, selectionController, rootElem
 
     // todo: when a line in the master view is clicked, we have to set the selection
 
-    selectionController.onPersonSelected(
-        selected => selected === person
-          ? deleteButton.classList.add("selected")
-          : deleteButton.classList.remove("selected")
-    );
-
-    masterController.onPersonRemove( (removedPerson, removeMe) => {
-        if (removedPerson !== person) return;
-        rootElement.removeChild(deleteButton);
-        rootElement.removeChild(firstnameInputElement);
-        rootElement.removeChild(lastnameInputElement);
-        // todo: what to do with selection when person was removed?
-        removeMe();
-    } );
+    registerPersonOnSelectDelete(deleteButton, firstnameInputElement, lastnameInputElement);
 
     rootElement.appendChild(deleteButton);
     rootElement.appendChild(firstnameInputElement);
@@ -176,3 +134,19 @@ const personFormProjector = (detailController, rootElement, person) => {
     rootElement.firstChild.replaceWith(divElement); // react - style ;-)
 };
 
+const registerPersonOnSelectDelete = (deleteButton, firstnameInput, lastnameInputElement) => {
+    selectionController.onPersonSelected(
+        selected => selected === person
+          ? deleteButton.classList.add("selected")
+          : deleteButton.classList.remove("selected")
+    );
+
+    masterController.onPersonRemove( (removedPerson, removeMe) => {
+        if (removedPerson !== person) return;
+        rootElement.removeChild(deleteButton);
+        rootElement.removeChild(firstnameInputElement);
+        rootElement.removeChild(lastnameInputElement);
+        // todo: what to do with selection when person was removed?
+        removeMe();
+    } );
+}
