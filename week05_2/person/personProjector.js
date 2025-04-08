@@ -35,7 +35,6 @@ const personTextProjector = textAttr => {
 };
 
 const personListItemTableProjector = (masterController, selectionController, rootElement, person) => {
-
     const deleteButton      = document.createElement("Button");
     deleteButton.setAttribute("class","delete");
     deleteButton.innerHTML  = "&times;";
@@ -77,9 +76,9 @@ const personListItemTableProjector = (masterController, selectionController, roo
 };
 
 const personListItemDivRowProjector = (masterController, selectionController, rootElement, person) => {
-
+    //if(!rootElement.classList.contains("grid")) rootElement.className += " grid"; // dynamically add class if needed
     const deleteButton      = document.createElement("Button");
-    deleteButton.setAttribute("class","delete");
+    deleteButton.setAttribute("class","delete button-row");
     deleteButton.innerHTML  = "&times;";
     deleteButton.onclick    = _ => masterController.removePerson(person);
 
@@ -89,9 +88,11 @@ const personListItemDivRowProjector = (masterController, selectionController, ro
     const cell1 = document.createElement("DIV");
     const cell2 = document.createElement("DIV");
 
-    row.className = "row"
-    // todo: when a line in the master view is clicked, we have to set the selection
+    row.className = "row";
+    cell1.className = "cell";
+    cell2.className = "cell";
 
+    // todo: when a line in the master view is clicked, we have to set the selection
     selectionController.onPersonSelected(
         selected => selected === person
           ? deleteButton.classList.add("selected")
